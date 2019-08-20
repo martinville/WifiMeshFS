@@ -23,4 +23,12 @@ Each data file that has been retrieved will be disected and the node will use th
 
 Each node will eventually mirror and share node data found in varius nearby nodes. If NODE 1 is too far away from NODE 3 but NODE 2 is in reach of NODE 1 and NODE 3, NODE 2 will ensure NODE 1 and NODE 3 is updated.
 
+## Flash Rom Compiler Settings
+Some of the flash rom will be used to store files that hold nearby node data. Therefore you need to set allocate some space.
+From the Arduino IDE Menu --> Flash size: --> Select 4M (1M SPIFFS)
+
+
+
+
+
 
