@@ -1,4 +1,5 @@
-WifiMeshFS creates a wireless mesh network that will share and mirror text data with nearby nodes. Each node on the network's data is stored as a text file with extention .txt in the node's flashrom using SPIFFS.
+WifiMeshFS 
+creates a wireless mesh network that will share and mirror text data with nearby nodes. Each node on the network's data is stored as a text file with extention .txt in the node's flashrom using SPIFFS.
 
 All nodes are configured using a console terminal. (Tested and developed using putty, but any VT100 compatible terminal that supports a serial connection will do.) 
 
