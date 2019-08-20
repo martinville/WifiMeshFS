@@ -52,8 +52,13 @@ To get started you can type verbose on which will enable extra logging so you ca
 
 ## Custom Sensors.
 In void CustomCode() you can provide your own code. By default the sketch comes with an example.
-Important: UpdateServCount(); Will increment the serve count so that the receiving nodes will know the data is new.
-ServCount=Eeprm.readdata(4); is not necessary because its simply fetching the current serve count to be place into the data section of the data file. The file that will be written is in the following format, 
+### Important: 
+UpdateServCount(); Will increment the serve count so that the receiving nodes will know the data is new.
+CreateFile(APPSSID+".txt",DataToWrite,"LOCAL");  Will write the new file.
+UpDateFileListentry(); will update the loacal list.txt with a new list of files.
+ServCount=Eeprm.readdata(4); is not necessary because its simply fetching the current serve count to be place into the data section of the data file. 
+
+The file that will be written is in the following format, 
 000000001This is the data portiosn.
 Position 1 to 10 is where the serve count is stored and the rest is where the data from sensors are stored in text format.,
 
