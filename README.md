@@ -27,6 +27,81 @@ Each node will eventually mirror and share node data found in varius nearby node
 Some of the flash rom will be used to store files that hold nearby node data. Therefore you need to set allocate some space.
 From the Arduino IDE Menu --> Flash size: --> Select 4M (1M SPIFFS)
 
+## Dependencies
+When installing the ESP8266 libraries all dependencies are available by default except for EEPRM which can be found from here.
+https://github.com/mailmartinviljoen/eeprm
+
+## Initial Setup
+Connect after flashing the ESP8266 with WifiMeshFS you can run the below commands to set it up.
+
+setssid ESP0001
+setappass YourPasswordHere
+setwifiprefix ESP
+setschedule 1
+saveconfig
+reboot
+
+The name of the ESP you are flashing will be set to ESP0001, besure to change to I.E ESP0002 after setting up the next node.
+Be sure to set the password and prefix the same for all other nodes.
+
+after setup is comple and you rebooted the node, press the flash button on each node to generate some data. Note: with verose mode set to off you will not see anything when presssing the flash button.
+
+## Console commands.
+Type help to get a list of commands.
+To get started you can type verbose on which will enable extra logging so you can see how the nodes are interacting.
+
+## Custom Sensors.
+In void CustomCode() you can provide your own code. By default the sketch comes with an example.
+Important: UpdateServCount(); Will increment the serve count so that the receiving nodes will know the data is new.
+ServCount=Eeprm.readdata(4); is not necessary because its simply fetching the current serve count to be place into the data section of the data file. The file that will be written is in the following format, 
+000000001This is the data portiosn.
+Position 1 to 10 is where the serve count is stored and the rest is where the data from sensors are stored in text format.,
+
+
+
+
+### Example
+void CustomCode()
+{
+ String ServCount;
+ int ESPFlashButtonState = digitalRead(0);
+
+  if(ESPFlashButtonState==0)
+  {
+      String ServCount;
+      String DataToWrite;
+      String fl_serv_count;
+      String Formatfl_serv_count;
+      String fl_node_data;
+      
+      //Update serve count and then update the local file
+      UpdateServCount();
+      Eeprm Eeprm(0);
+      ServCount=Eeprm.readdata(4);
+  
+      fl_serv_count=ServCount + "                        ";
+      Formatfl_serv_count = fl_serv_count.substring(0,10);
+      fl_node_data = "DATA VALUE IS:" + fl_serv_count;
+      //Combine Serve Count with node data               
+      DataToWrite = Formatfl_serv_count+fl_node_data;
+
+      CreateFile(APPSSID+".txt",DataToWrite,"LOCAL");      
+      //Serial.println("Data written:" + DataToWrite );
+      UpDateFileListentry();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
