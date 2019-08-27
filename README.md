@@ -98,6 +98,8 @@ void CustomCode()
 }
 
 
+## WARNING
+When using the custom void, please be mindfull when writing data as each write has wear on the flashrom. Once worn out the device will missbehave or simply fail.
 
 
 
